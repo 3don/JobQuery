@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">JobQuery</string>
+
+    <string name="add_query">Добавить новый поиск</string>
+    <string name="action_settings">Settings</string>
+    <string name="delete_query">Удалить</string>
+    <string name="job_query_name">Название:</string>
+    <string name="new_job_offers">Количество новых предложений:</string>
+    <string name="zero">0</string>
+    <string name="empty">Пусто</string>
+    <string name="key_word">Ключевое слово:</string>
+</resources>
