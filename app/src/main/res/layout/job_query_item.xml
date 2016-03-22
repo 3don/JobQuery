@@ -59,8 +59,8 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="@string/delete_query"
-        android:id="@+id/deleteQueryButton"
+        android:text="@string/edit_query"
+        android:id="@+id/editQueryButton"
         android:textSize="12dp"
         android:layout_weight="1"
         android:layout_marginLeft="5dp"
