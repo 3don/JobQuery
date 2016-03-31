@@ -177,7 +177,15 @@ public class JobQueryList extends ListActivity {
                 saveQuery(name, key);
             }
         });
-        inputDialog.setNeutralButton(R.string.delete_button, null);
+        inputDialog.setNeutralButton(R.string.delete_button, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                jobQueryList.remove(getJobQueryByName(jobQueryNameEditText.getText().toString()));
+                //jobQueryList.remove((JobQuery) v.getTag());
+                jobQueryAdapter.notifyDataSetChanged();
+                new SaveJobQueryTask().execute((Object[]) null);
+            }
+        });
         inputDialog.setNegativeButton(R.string.cancel_button, null);
         inputDialog.show();
     }
@@ -187,10 +195,31 @@ public class JobQueryList extends ListActivity {
             jobQueryList.add(new JobQuery(name, key));
             jobQueryAdapter.notifyDataSetChanged();
             Log.e(TAG, "adapter was notified");
+            new SaveJobQueryTask().execute((Object[]) null);
         }
-
     }
-
+    
+    private class SaveJobQueryTask extends AsyncTask<Object, Object, Object> {
+        @Override
+        protected Object doInBackground(Object... arg0){
+            try{
+                if (!jobQueryFile.exists())
+                    jobQueryFile.createNewFile();
+                
+                ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(jobQueryFile));
+                output.writeObject(jobQueryFile);
+                output.close();
+            }
+            catch (final Exception e){
+                runOnUiThread(new Runnable(){
+                    public void run(); {
+                        Toast.makeText(JobQueryList.this, "Файл сохранен", Toast.Length_LONG).show();
+                    }   
+                });
+            }
+            return (Object) null;
+        }
+    }
 
     class ODeskAuthorizeTask extends AsyncTask<Void, Void, String> {
 
